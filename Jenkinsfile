@@ -7,17 +7,17 @@ pipeline {
 		stage('Validacion') {
             steps {
                 powershell 'cd simple'
-				powershell 'mvn validate'
+				powershell 'mvn -f simple validate'
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn install'
+                powershell 'mvn -f simple  install'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                powershell 'mvn -f simple  test'
             }
         }
     }
