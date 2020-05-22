@@ -1,22 +1,24 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000 -p 5000:5000' 
-        }
-    }
     environment {
         CI = 'true'
     }
     stages {
+		stage('Validacion') {
+            steps {
+                sh 'cd ./simple'
+            }
+			steps {
+                sh 'mvn validate'
+            }
+        }
         stage('Build') {
             steps {
-                sh 'mvn -version'
+                sh 'mvn install'
             }
         }
         stage('Test') {
             steps {
-                sh 'java -version'
+                sh 'mvn test'
             }
         }
     }
