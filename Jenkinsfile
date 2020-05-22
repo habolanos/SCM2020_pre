@@ -5,10 +5,7 @@ pipeline {
     stages {
 		stage('Validacion') {
             steps {
-                sh 'cd ./simple'
-            }
-			steps {
-                sh 'mvn validate'
+                sh 'cd simple'
             }
         }
         stage('Build') {
