@@ -3,12 +3,11 @@ pipeline {
     environment {
 		VARIABLE_X='Variable Ejemplo SCM Usb cali'
 		PROJECT_NAME='SCM_CALI'
-		BUILD_NUMBER = "${env.BUILD_NUMBER}"
     }
     stages {
 		stage('Inicio') {
 			steps {
-				echo "Proyecto %PROJECT_NAME%'
+				echo "Proyecto ${PROJECT_NAME}'
 			}
 		}
 		stage('Validacion') {
@@ -31,7 +30,6 @@ pipeline {
 	post {
 		always {
             echo "ALWAYS"
-			//echo "Proyecto ${PROJECT_NAME} Construccion # ${BUILD_NUMBER}"
             notifyBuild("${currentBuild.currentResult}")
         }
         aborted {
