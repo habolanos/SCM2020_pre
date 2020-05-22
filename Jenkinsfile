@@ -7,7 +7,7 @@ pipeline {
     stages {
 		stage('Inicio') {
 			steps {
-				echo "Proyecto ${PROJECT_NAME}'
+				echo "Proyecto ${PROJECT_NAME}"
 			}
 		}
 		stage('Validacion') {
