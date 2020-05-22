@@ -6,8 +6,8 @@ pipeline {
     stages {
 		stage('Validacion') {
             steps {
-                sh 'cd simple'
-				sh 'mvn validate'
+                powershell 'cd simple'
+				powershell 'mvn validate'
             }
         }
         stage('Build') {
