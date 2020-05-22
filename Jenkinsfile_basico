@@ -2,7 +2,7 @@ pipeline {
 	agent any
     environment {
 		VARIABLE_X='Variable Ejemplo SCM Usb cali'
-		PROJECT_NAME='SCM_CALI - Basioco'
+		PROJECT_NAME='SCM_CALI - Basico'
     }
     stages {
 		stage('Etapa 0') {
@@ -12,18 +12,17 @@ pipeline {
 		}
 		stage('Etapa 1') {
             steps {
-                powershell 'cd simple'
-				powershell 'mvn -f simple validate'
+                echo "Paso 1"
             }
         }
         stage('Etapa 2') {
             steps {
-                powershell 'mvn -f simple  install'
+                echo "Paso 2"
             }
         }
         stage('Etapa 3') {
             steps {
-                powershell 'mvn -f simple  test'
+                echo "Paso 3"
             }
         }
     }
@@ -43,6 +42,7 @@ pipeline {
         }
         failure {
             echo "BUILD FAILURE"
+			echo "Revisar Fallos"
         }
 	}
 }

@@ -29,8 +29,7 @@ pipeline {
     }
 	post {
 		always {
-            echo "ALWAYS"
-            notifyBuild("${currentBuild.currentResult}")
+            echo "Finalizo: ${currentBuild.currentResult}"
         }
         aborted {
             echo "BUILD ABORTED"
@@ -44,6 +43,7 @@ pipeline {
         }
         failure {
             echo "BUILD FAILURE"
+			echo "Revisar Fallos"
         }
 	}
 }

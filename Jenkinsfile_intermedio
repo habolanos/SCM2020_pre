@@ -1,0 +1,83 @@
+pipeline {
+	agent any
+    environment {
+		VARIABLE_X='Variable Ejemplo SCM Usb cali'
+		PROJECT_NAME='SCM_CALI - Intermedio
+    }
+    stages {
+		stage('Etapa 0') {
+			steps {
+				echo "Proyecto ${PROJECT_NAME}"
+			}
+		}
+		stage('Etapa 0 - Parallel Stage') {
+            when {
+                branch 'master'
+            }
+            failFast true
+            parallel {
+                stage('Branch A') {
+                    agent {
+                        label "for-branch-a"
+                    }
+                    steps {
+                        echo "On Branch A"
+                    }
+                }
+                stage('Branch B') {
+                    agent {
+                        label "for-branch-b"
+                    }
+                    steps {
+                        echo "On Branch B"
+                    }
+                }
+                stage('Branch C') {
+                    agent {
+                        label "for-branch-c"
+                    }
+                    stages {
+                        stage('Nested 1') {
+                            steps {
+                                echo "In stage Nested 1 within Branch C"
+                            }
+                        }
+                        stage('Nested 2') {
+                            steps {
+                                echo "In stage Nested 2 within Branch C"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        stage('Etapa 2') {
+            steps {
+                powershell 'mvn -f simple  install'
+            }
+        }
+        stage('Etapa 3') {
+            steps {
+                powershell 'mvn -f simple  test'
+            }
+        }
+    }
+	post {
+		always {
+            echo "Finalizo: ${currentBuild.currentResult}"
+        }
+        aborted {
+            echo "BUILD ABORTED"
+        }
+        success {
+            echo "BUILD SUCCESS"
+            echo "Seria bueno mantener esta construccion"
+        }
+        unstable {
+            echo "BUILD UNSTABLE"
+        }
+        failure {
+            echo "BUILD FAILURE"
+        }
+	}
+}
