@@ -1,4 +1,5 @@
 pipeline {
+	any agent
     environment {
         CI = 'true'
     }
