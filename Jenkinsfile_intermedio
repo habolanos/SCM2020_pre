@@ -2,7 +2,7 @@ pipeline {
 	agent any
     environment {
 		VARIABLE_X='Variable Ejemplo SCM Usb cali'
-		PROJECT_NAME='SCM_CALI - Intermedio
+		PROJECT_NAME='SCM_CALI - Intermedio'
     }
     stages {
 		stage('Etapa 0') {
