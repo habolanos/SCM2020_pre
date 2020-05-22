@@ -1,0 +1,48 @@
+pipeline {
+	agent any
+    environment {
+		VARIABLE_X='Variable Ejemplo SCM Usb cali'
+		PROJECT_NAME='SCM_CALI - Basioco'
+    }
+    stages {
+		stage('Etapa 0') {
+			steps {
+				echo "Proyecto ${PROJECT_NAME}"
+			}
+		}
+		stage('Etapa 1') {
+            steps {
+                powershell 'cd simple'
+				powershell 'mvn -f simple validate'
+            }
+        }
+        stage('Etapa 2') {
+            steps {
+                powershell 'mvn -f simple  install'
+            }
+        }
+        stage('Etapa 3') {
+            steps {
+                powershell 'mvn -f simple  test'
+            }
+        }
+    }
+	post {
+		always {
+            echo "Finalizo: ${currentBuild.currentResult}"
+        }
+        aborted {
+            echo "BUILD ABORTED"
+        }
+        success {
+            echo "BUILD SUCCESS"
+            echo "Seria bueno mantener esta construccion"
+        }
+        unstable {
+            echo "BUILD UNSTABLE"
+        }
+        failure {
+            echo "BUILD FAILURE"
+        }
+	}
+}
