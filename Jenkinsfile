@@ -1,5 +1,5 @@
 pipeline {
-	any agent
+	agent any
     environment {
         CI = 'true'
     }
@@ -7,6 +7,7 @@ pipeline {
 		stage('Validacion') {
             steps {
                 sh 'cd simple'
+				sh 'mvn validate'
             }
         }
         stage('Build') {
